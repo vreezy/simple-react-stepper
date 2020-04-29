@@ -37,7 +37,9 @@ function App() {
     <div className="App">
       <StepperSimple selectedIndex={stepperIndex} onChange={(value) => onChange(value)} items={stepperSimpleOptions} design={StepperSimpleDesign.Bar}/>
 
-      <div>Hallo Welt {stepperIndex} {trigger}</div>
+      <div className="body">
+        Hallo Welt {stepperIndex} {trigger}
+      </div>
 
       <StepperSimple selectedIndex={stepperIndex} disabled={loading} noBack={true} onChange={(value) => onChange(value)} items={stepperSimpleOptions} design={StepperSimpleDesign.Button}/>
 

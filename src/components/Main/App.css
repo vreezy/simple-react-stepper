@@ -2,9 +2,13 @@
 .App {
   border: 1px solid red;
   display: Grid;
-  grid-template-rows: auto 500px auto;
-  height: 700px;
+  grid-gap: 8px;
+  grid-template-rows: auto auto auto;
   max-width: 500px;
   margin: auto;
+}
+
+.body {
+  min-height: 500px;
 }
 
