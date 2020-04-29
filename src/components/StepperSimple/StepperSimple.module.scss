@@ -1,0 +1,24 @@
+.container {
+    border: 1px dotted blue;
+    display: Grid;
+    grid-auto-flow: column;  
+    // grid-column: 2 / 5;
+    // grid-template-columns: auto auto;
+    // justify-items: center;
+    // align-items: center;
+}
+
+.itemBar {
+    border: 1px solid green;
+    justify-self: center;
+    align-self: center;
+}
+
+.itemButtonContainer {
+    display: Grid;
+    grid-auto-flow: column;  
+    grid-gap: 6px;
+    border: 1px solid green;
+    justify-self: right;
+    align-self: center;
+}

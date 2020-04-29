@@ -1,0 +1,10 @@
+
+.App {
+  border: 1px solid red;
+  display: Grid;
+  grid-template-rows: auto 500px auto;
+  height: 700px;
+  max-width: 500px;
+  margin: auto;
+}
+
