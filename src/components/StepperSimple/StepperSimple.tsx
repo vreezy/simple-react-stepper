@@ -2,6 +2,7 @@ import * as React from 'react';
 import { PrimaryButton } from 'office-ui-fabric-react';
 import { getGUID } from "@pnp/common";
 import { Icon } from '@fluentui/react/lib/Icon';
+import { Text, ITextProps } from 'office-ui-fabric-react/lib/Text';
 
 import styles from './StepperSimple.module.scss';
 
@@ -59,45 +60,43 @@ export function StepperSimple(props: IStepperSimpleProps) {
 
         if(style === StepperSimpleStyle.NextButton && isActive) {
             return (
-                <div className={styles.itemButtonContainer}>
-                    <StepperButton
-                        key={getGUID()}
-                        index={0}
-                        selectedIndex={selectedIndex + 1}
-                        style={StepperSimpleStyle.NextButton}
-                        disabled={disabled}
-                        onChange={props.onChange}
-                        item={item}
-                        isFirst={isFirst}
-                        isLast={isLast}
-                        isPast={isPast}
-                        isActive={isActive}
-                        isFuther={isFuther}
-                        visible={visible}
-                    />
-                </div>
+                <StepperButton
+                    key={getGUID()}
+                    index={0}
+                    selectedIndex={selectedIndex + 1}
+                    style={StepperSimpleStyle.NextButton}
+                    disabled={disabled}
+                    onChange={props.onChange}
+                    item={item}
+                    isFirst={isFirst}
+                    isLast={isLast}
+                    isPast={isPast}
+                    isActive={isActive}
+                    isFuther={isFuther}
+                    visible={visible}
+                />
             );
         }
 
         if(style === StepperSimpleStyle.BackButton && isActive) {
             return (
-                <div className={styles.itemButtonContainer}>
-                    <StepperButton
-                        key={getGUID()}
-                        index={0}
-                        selectedIndex={selectedIndex + 1}
-                        style={StepperSimpleStyle.BackButton}
-                        disabled={disabled}
-                        onChange={props.onChange}
-                        item={item}
-                        isFirst={isFirst}
-                        isLast={isLast}
-                        isPast={isPast}
-                        isActive={isActive}
-                        isFuther={isFuther}
-                        visible={visible}
-                    />
-                </div>
+
+                <StepperButton
+                    index={0}
+                    key={getGUID()}
+                    selectedIndex={selectedIndex + 1}
+                    style={StepperSimpleStyle.BackButton}
+                    disabled={disabled}
+                    onChange={props.onChange}
+                    item={item}
+                    isFirst={isFirst}
+                    isLast={isLast}
+                    isPast={isPast}
+                    isActive={isActive}
+                    isFuther={isFuther}
+                    visible={visible}
+                />
+
             );
         }
 
@@ -202,8 +201,7 @@ function StepperBar(props: IStepperSimpleElement) {
                         </span>
                     </div>
                     <div className={styles.textContainer}>
-                        {props.item.text}
-                
+                        <Text variant={"small"}>{props.item.text}</Text>
                     </div>
             </div>
         )

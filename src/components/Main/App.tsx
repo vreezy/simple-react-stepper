@@ -38,7 +38,7 @@ function App() {
     }
 
     if(value >= stepperSimpleOptions.length) {
-      setLoading(true);
+      // setLoading(true);
       setTrigger("Triggered");
       // trigger any function
 
