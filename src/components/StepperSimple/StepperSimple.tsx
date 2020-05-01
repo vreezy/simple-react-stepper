@@ -200,9 +200,9 @@ function StepperBar(props: IStepperSimpleElement) {
                             {getIcon()}   
                         </span>
                     </div>
-                    <div className={styles.textContainer}>
+                    {/* <div className={styles.textContainer}> */}
                         <Text variant={"small"}>{props.item.text}</Text>
-                    </div>
+                    {/* </div> */}
             </div>
         )
     }
