@@ -12,3 +12,12 @@
   min-height: 500px;
 }
 
+.buttonContainer {
+  display: Grid;
+  grid-auto-flow: column;  
+  grid-gap: 6px;
+  border: 1px solid green;
+  justify-self: right;
+  align-self: center;
+}
+

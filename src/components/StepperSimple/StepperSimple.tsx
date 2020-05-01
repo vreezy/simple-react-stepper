@@ -5,12 +5,16 @@ import { Icon } from '@fluentui/react/lib/Icon';
 
 import styles from './StepperSimple.module.scss';
 
-export enum StepperSimpleDesign {
-    Button = "button",
-    Bar = "bar"
+// export enum StepperSimpleDesign {
+//     Button,
+//     Bar
+// }
+
+export enum StepperSimpleStyle {
+    Bar,
+    NextButton,
+    BackButton
 }
-
-
 
 // export enum StepperSimpleTense {
 //     Past = "past",
@@ -28,22 +32,24 @@ export interface IStepperSimpleOption {
 export interface IStepperSimpleProps {
     selectedIndex?: number;
     items?: IStepperSimpleOption[];
-    design?: StepperSimpleDesign;
+    style?: StepperSimpleStyle;
     disabled?: boolean;
+    visible?: boolean;
     onChange(value: number): void;
-    noBack?: boolean;
 }
 
 export function StepperSimple(props: IStepperSimpleProps) {
     const selectedIndex: number = props.selectedIndex || 0;
     const items: IStepperSimpleOption[] = props.items || [];
-    const design: StepperSimpleDesign =  props.design || StepperSimpleDesign.Bar;
+    const style: StepperSimpleStyle =  props.style || StepperSimpleStyle.Bar;
     const disabled: boolean = props.disabled || false;
-    const noBack: boolean = props.noBack || false;
-
+    const visible: boolean = props.visible || true;
+    
     const isFirst = selectedIndex === 0 ;
     const isLast = items.length === selectedIndex + 1 ;
     // const isPast = () => { return }
+
+
 
 
     const itemsView: React.ReactNode[] = items.map((item: IStepperSimpleOption, index: number) => {
@@ -51,50 +57,14 @@ export function StepperSimple(props: IStepperSimpleProps) {
         const isActive = index === selectedIndex;
         const isFuther = index > selectedIndex;
 
-
-        if(design === StepperSimpleDesign.Bar) {
-            return (
-                <StepperBar
-                    key={getGUID()}
-                    index={index}
-                    selectedIndex={selectedIndex}
-                    disabled={disabled}
-                    onChange={props.onChange}
-                    item={item}
-                    isFirst={isFirst}
-                    isLast={isLast}
-                    isPast={isPast}
-                    isActive={isActive}
-                    isFuther={isFuther}
-                    visible={true}
-                />
-            );
-        }
-
-        if(design === StepperSimpleDesign.Button && isActive) {
-
+        if(style === StepperSimpleStyle.NextButton && isActive) {
             return (
                 <div className={styles.itemButtonContainer}>
-                    {/* Back */}
                     <StepperButton
                         key={getGUID()}
-                        index={index}
-                        selectedIndex={selectedIndex - 1}
-                        disabled={disabled || isFirst}
-                        onChange={props.onChange}
-                        item={item}
-                        isFirst={isFirst}
-                        isLast={isLast}
-                        isPast={isPast}
-                        isActive={isActive}
-                        isFuther={isFuther}
-                        visible={!noBack}
-                    />
-                    {/* Next */}
-                    <StepperButton
-                        key={getGUID()}
-                        index={index}
+                        index={0}
                         selectedIndex={selectedIndex + 1}
+                        style={StepperSimpleStyle.NextButton}
                         disabled={disabled}
                         onChange={props.onChange}
                         item={item}
@@ -103,9 +73,51 @@ export function StepperSimple(props: IStepperSimpleProps) {
                         isPast={isPast}
                         isActive={isActive}
                         isFuther={isFuther}
-                        visible={true}
+                        visible={visible}
                     />
                 </div>
+            );
+        }
+
+        if(style === StepperSimpleStyle.BackButton && isActive) {
+            return (
+                <div className={styles.itemButtonContainer}>
+                    <StepperButton
+                        key={getGUID()}
+                        index={0}
+                        selectedIndex={selectedIndex + 1}
+                        style={StepperSimpleStyle.BackButton}
+                        disabled={disabled}
+                        onChange={props.onChange}
+                        item={item}
+                        isFirst={isFirst}
+                        isLast={isLast}
+                        isPast={isPast}
+                        isActive={isActive}
+                        isFuther={isFuther}
+                        visible={visible}
+                    />
+                </div>
+            );
+        }
+
+        if(style === StepperSimpleStyle.Bar) {
+            return (
+                <StepperBar
+                    key={getGUID()}
+                    index={index}
+                    selectedIndex={selectedIndex}
+                    style={StepperSimpleStyle.Bar}
+                    disabled={disabled}
+                    onChange={props.onChange}
+                    item={item}
+                    isFirst={isFirst}
+                    isLast={isLast}
+                    isPast={isPast}
+                    isActive={isActive}
+                    isFuther={isFuther}
+                    visible={visible}
+                />
             );
         }
 
@@ -127,6 +139,7 @@ export default StepperSimple;
 export interface IStepperSimpleElement {
     index: number;
     selectedIndex: number;
+    style: StepperSimpleStyle;
     disabled: boolean;
     visible: boolean
     onChange(value: number): void;
@@ -139,10 +152,28 @@ export interface IStepperSimpleElement {
 }
 
 function StepperButton(props: IStepperSimpleElement) {
+    const getText = () => {
+        if(props.style === StepperSimpleStyle.NextButton) {
+            if(props.item.buttonNextText) {
+                return props.item.buttonNextText;
+            }
+            return "Weiter"
+        }
+
+        if(props.style === StepperSimpleStyle.BackButton) {
+            if(props.item.buttonBackText) {
+                return props.item.buttonBackText;
+            }
+            return "Zurück"
+        }
+
+        return "Button?";
+    }
+
     if(props.visible) {
         return (
             <div>
-                <PrimaryButton text={props.item.text} onClick={() =>props.onChange(props.selectedIndex)} disabled={props.disabled} />
+                <PrimaryButton text={getText()} onClick={() =>props.onChange(props.selectedIndex)} disabled={props.disabled} />
             </div>
         )
     }
