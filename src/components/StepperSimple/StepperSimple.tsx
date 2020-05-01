@@ -10,15 +10,19 @@ export enum StepperSimpleDesign {
     Bar = "bar"
 }
 
-export enum StepperSimpleTense {
-    Past = "past",
-    Active = "active",
-    Futher = "futher"
-}
+
+
+// export enum StepperSimpleTense {
+//     Past = "past",
+//     Active = "active",
+//     Futher = "futher"
+// }
 
 export interface IStepperSimpleOption {
     text: string;
     icon?: string;
+    buttonNextText?: string;
+    buttonBackText?: string;
 }
 
 export interface IStepperSimpleProps {
@@ -37,71 +41,68 @@ export function StepperSimple(props: IStepperSimpleProps) {
     const disabled: boolean = props.disabled || false;
     const noBack: boolean = props.noBack || false;
 
-    const isFirst = () => { return selectedIndex === 0 };
-    const isLast = () => { return items.length === selectedIndex + 1 };
+    const isFirst = selectedIndex === 0 ;
+    const isLast = items.length === selectedIndex + 1 ;
     // const isPast = () => { return }
 
 
     const itemsView: React.ReactNode[] = items.map((item: IStepperSimpleOption, index: number) => {
-        const isPast = () => { return index < selectedIndex }
-        const isActive = () => { return index === selectedIndex }
-        const isFuther = () => { return index > selectedIndex }
+        const isPast = index < selectedIndex;
+        const isActive = index === selectedIndex;
+        const isFuther = index > selectedIndex;
 
-        const tense = (): StepperSimpleTense => {
-            if(isPast()) {
-                return StepperSimpleTense.Past;
-            }
-
-            if(isFuther()) {
-                return StepperSimpleTense.Futher;
-            }
-
-            return StepperSimpleTense.Active;
-        }
 
         if(design === StepperSimpleDesign.Bar) {
             return (
                 <StepperBar
                     key={getGUID()}
+                    index={index}
                     selectedIndex={selectedIndex}
                     disabled={disabled}
                     onChange={props.onChange}
-                    tense={tense()}
-                    text={item.text}
+                    item={item}
+                    isFirst={isFirst}
+                    isLast={isLast}
+                    isPast={isPast}
+                    isActive={isActive}
+                    isFuther={isFuther}
                     visible={true}
                 />
             );
         }
 
-        if(design === StepperSimpleDesign.Button && isActive()) {
-            const textNext = (): string => {
-                if(isLast()) {
-                    return "Finish";
-                }
-
-                return "Weiter";
-            }
+        if(design === StepperSimpleDesign.Button && isActive) {
 
             return (
                 <div className={styles.itemButtonContainer}>
                     {/* Back */}
                     <StepperButton
                         key={getGUID()}
-                        selectedIndex={selectedIndex + -1}
-                        disabled={disabled || isFirst()}
+                        index={index}
+                        selectedIndex={selectedIndex - 1}
+                        disabled={disabled || isFirst}
                         onChange={props.onChange}
-                        tense={tense()}
-                        text={"Zurück"}
+                        item={item}
+                        isFirst={isFirst}
+                        isLast={isLast}
+                        isPast={isPast}
+                        isActive={isActive}
+                        isFuther={isFuther}
                         visible={!noBack}
                     />
                     {/* Next */}
                     <StepperButton
                         key={getGUID()}
+                        index={index}
                         selectedIndex={selectedIndex + 1}
                         disabled={disabled}
                         onChange={props.onChange}
-                        tense={tense()}
-                        text={textNext()}
+                        item={item}
+                        isFirst={isFirst}
+                        isLast={isLast}
+                        isPast={isPast}
+                        isActive={isActive}
+                        isFuther={isFuther}
                         visible={true}
                     />
                 </div>
@@ -124,19 +125,24 @@ export function StepperSimple(props: IStepperSimpleProps) {
 export default StepperSimple;
 
 export interface IStepperSimpleElement {
+    index: number;
     selectedIndex: number;
-    tense: StepperSimpleTense;
     disabled: boolean;
     visible: boolean
     onChange(value: number): void;
-    text: string;
+    item: IStepperSimpleOption;
+    isFirst: boolean;
+    isLast: boolean;
+    isPast: boolean;
+    isActive: boolean;
+    isFuther: boolean;
 }
 
 function StepperButton(props: IStepperSimpleElement) {
     if(props.visible) {
         return (
             <div>
-                <PrimaryButton text={props.text} onClick={() =>props.onChange(props.selectedIndex)} disabled={props.disabled} />
+                <PrimaryButton text={props.item.text} onClick={() =>props.onChange(props.selectedIndex)} disabled={props.disabled} />
             </div>
         )
     }
@@ -146,19 +152,26 @@ function StepperButton(props: IStepperSimpleElement) {
 function StepperBar(props: IStepperSimpleElement) {
     if(props.visible) {
 
-        // const iconName = () => {
+        const getIcon = () => {
+            if(props.isPast) {
+                return ( <Icon iconName="CheckMark"/> )
+            }
+            if(props.item.icon) {
+                return ( <Icon iconName={props.item.icon}/> )
+            }
+            return props.index + 1 + "."
 
-        // }
+        }
         return (
             <div className={styles.barContainer}>
                 
                     <div className={styles.circle}>
                         <span className={styles.iconContainer}>
-                            <Icon iconName="CompassNW"/>    
+                            {getIcon()}   
                         </span>
                     </div>
                     <div className={styles.textContainer}>
-                        {props.text}
+                        {props.item.text}
                 
                     </div>
             </div>

@@ -6,20 +6,24 @@ import { StepperSimple, IStepperSimpleOption, StepperSimpleDesign } from '../Ste
 
 const stepperSimpleOptions: IStepperSimpleOption[] = [
   {
-    text: "step 1 dadada",
-    icon: ""
+    text: "Vorlage aussuchen",
+    icon: "FileTemplate"
   },
   {
-    text: "step 2 lalala "
+    text: "Eigenschaften ausfüllen" ,
+    icon: "AddNotes"
   },
   {
-    text: "step 3 lalala"
+    text: "In Word Bearbeiten",
+    icon: "WordLogo"
   },
   {
-    text: "step 3 lalala"
+    text: "E-Mail ausfüllen",
+    icon: "EditMail"
   },
   {
-    text: "step 3 lalala"
+    text: "step 3 lalala",
+    icon: "MailCheck"
   },
 ]
 
@@ -29,7 +33,7 @@ function App() {
   const [trigger, setTrigger] = useState("");
 
   const onChange = (value: number) => {
-    if(value > 0 && value < stepperSimpleOptions.length) {
+    if(value > -1 && value < stepperSimpleOptions.length) {
       setStepperIndex(value);
     }
 
@@ -48,7 +52,7 @@ function App() {
         Hallo Welt {stepperIndex} {trigger}
       </div>
 
-      <StepperSimple selectedIndex={stepperIndex} disabled={loading} noBack={true} onChange={(value) => onChange(value)} items={stepperSimpleOptions} design={StepperSimpleDesign.Button}/>
+      <StepperSimple selectedIndex={stepperIndex} disabled={loading} onChange={(value) => onChange(value)} items={stepperSimpleOptions} design={StepperSimpleDesign.Button}/>
 
     </div>
   );
