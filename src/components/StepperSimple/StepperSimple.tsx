@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PrimaryButton } from 'office-ui-fabric-react';
 import { getGUID } from "@pnp/common";
+import { Icon } from '@fluentui/react/lib/Icon';
 
 import styles from './StepperSimple.module.scss';
 
@@ -17,6 +18,7 @@ export enum StepperSimpleTense {
 
 export interface IStepperSimpleOption {
     text: string;
+    icon?: string;
 }
 
 export interface IStepperSimpleProps {
@@ -143,9 +145,22 @@ function StepperButton(props: IStepperSimpleElement) {
 
 function StepperBar(props: IStepperSimpleElement) {
     if(props.visible) {
+
+        // const iconName = () => {
+
+        // }
         return (
-            <div className={styles.itemBar}>
-                {props.text}
+            <div className={styles.barContainer}>
+                
+                    <div className={styles.circle}>
+                        <span className={styles.iconContainer}>
+                            <Icon iconName="CompassNW"/>    
+                        </span>
+                    </div>
+                    <div className={styles.textContainer}>
+                        {props.text}
+                
+                    </div>
             </div>
         )
     }

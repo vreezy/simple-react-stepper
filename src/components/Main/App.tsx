@@ -6,10 +6,17 @@ import { StepperSimple, IStepperSimpleOption, StepperSimpleDesign } from '../Ste
 
 const stepperSimpleOptions: IStepperSimpleOption[] = [
   {
-    text: "step 1 dadada"
+    text: "step 1 dadada",
+    icon: ""
   },
   {
-    text: "step 2 lalala"
+    text: "step 2 lalala "
+  },
+  {
+    text: "step 3 lalala"
+  },
+  {
+    text: "step 3 lalala"
   },
   {
     text: "step 3 lalala"
