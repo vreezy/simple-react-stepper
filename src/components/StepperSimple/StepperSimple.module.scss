@@ -1,60 +1,78 @@
+@import '~office-ui-fabric-react/dist/sass/_References.scss';
+
 .container {
     border: 1px dotted blue;
     display: Grid;
     grid-auto-flow: column;  
-    // grid-column: 2 / 5;
-    // grid-template-rows: auto;
-    // justify-items: stretch;
-    // justify-items: center;
-    // align-items: center;
-}
+    // grid-template-rows: 10px 74px 10px;
 
-.barContainer {
-    border: 1px solid green;
-    display: grid;
-    grid-template-columns: 30px 80%;
-    grid-gap: 8px;
-    padding: 0 5px;
-    min-height: 72px;
-    // width: auto;
-    // min-width: 0;
-    // max-width: 100%;
-
-    // overflow: hidden;
-
-    // flex: 1 0 auto;
-    align-items: center;
-
-
-}
-
-.circle {
-    // position: relative;
-    // align-items: center;
-    display: inline-grid;
-
-    // display: flex;
-    // flex-wrap: wrap;
-
-   // margin-right: 8px;
-//     font-size: 14px;
-    width: 30px;
-    // min-width: 24px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid black;
-    background: white;
-
-    .iconContainer {
+    .barContainer {
+        // grid-area: 2;
+        border: 1px solid green;
+        display: grid;
+        grid-template-columns: 38px 80%;
+        grid-template-rows: 74px 10px;
+        grid-gap: 8px;
+        padding: 0 5px;
+        min-height: 72px;
         align-items: center;
-        justify-content: center;
-        display: flex;
-        flex-wrap: wrap;
+    
+        .circle {
+            margin-left: 8px;
+            display: inline-grid;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid black;
+            background: white;
+        
+            .iconContainer {
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                flex-wrap: wrap;
+            }
+        }
+        
+        .textContainer{
+            word-wrap: break-word;
+            margin-right: 8px;
+        }
+
+        .colorLine {
+            width: 100%;
+            background-color: grey;
+        }
     }
 }
+//  https://github.com/OfficeDev/hands-on-labs/blob/master/O3652/O3652-1%20Deep%20Dive%20in%20Office%20Outlook%20Add-ins/Completed%20Projects/Translator/TranslatorWeb/Content/sass/_Fabric.Color.Variables.scss
 
-.textContainer{
-    position: relative;
-    display: block;
+.past {
+    color: $ms-color-success
 }
+
+.active {
+    color: $ms-color-themePrimary
+}
+
+.futher {
+    color: $ms-color-info
+}
+
+
+.pastLine {
+    background-color: $ms-color-success
+}
+
+.activeLine {
+    background-color: $ms-color-themePrimary
+}
+
+.futherLine {
+    background-color: $ms-color-info
+}
+
+
+
+
 

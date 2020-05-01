@@ -3,6 +3,7 @@ import { PrimaryButton } from 'office-ui-fabric-react';
 import { getGUID } from "@pnp/common";
 import { Icon } from '@fluentui/react/lib/Icon';
 import { Text, ITextProps } from 'office-ui-fabric-react/lib/Text';
+import { AnimationStyles, mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 
 import styles from './StepperSimple.module.scss';
 
@@ -84,7 +85,7 @@ export function StepperSimple(props: IStepperSimpleProps) {
                 <StepperButton
                     index={0}
                     key={getGUID()}
-                    selectedIndex={selectedIndex + 1}
+                    selectedIndex={selectedIndex - 1}
                     style={StepperSimpleStyle.BackButton}
                     disabled={disabled}
                     onChange={props.onChange}
@@ -190,19 +191,53 @@ function StepperBar(props: IStepperSimpleElement) {
                 return ( <Icon iconName={props.item.icon}/> )
             }
             return props.index + 1 + "."
-
         }
+
+        const getTextContainerStyle = () => {
+            if(props.isPast) {
+                return mergeStyles(styles.textContainer, styles.past);
+            }
+
+            if(props.isActive) {
+                return mergeStyles(styles.textContainer, styles.active);
+            }
+
+            if(props.isFuther) {
+                return mergeStyles(styles.textContainer, styles.futher);
+            }
+            
+            return mergeStyles(styles.textContainer);
+        }
+
+        const getIconConatianerStyle = () => {
+            if(props.isPast) {
+                return mergeStyles(styles.iconContainer, styles.past);
+            }
+
+            if(props.isActive) {
+                return mergeStyles(styles.iconContainer, styles.active);
+            }
+
+            if(props.isFuther) {
+                return mergeStyles(styles.iconContainer, styles.futher);
+            }
+            
+            return mergeStyles(styles.iconContainer);
+        }
+
         return (
             <div className={styles.barContainer}>
                 
                     <div className={styles.circle}>
-                        <span className={styles.iconContainer}>
+                        <span className={getIconConatianerStyle()}>
                             {getIcon()}   
                         </span>
                     </div>
-                    {/* <div className={styles.textContainer}> */}
+                    <div className={getTextContainerStyle()}>
                         <Text variant={"small"}>{props.item.text}</Text>
-                    {/* </div> */}
+                    </div>
+
+                    <div className={styles.colorLine}>&nbsp;</div>
             </div>
         )
     }
