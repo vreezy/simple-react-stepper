@@ -2,27 +2,21 @@ import * as React from 'react';
 import { PrimaryButton } from 'office-ui-fabric-react';
 import { getGUID } from "@pnp/common";
 import { Icon } from '@fluentui/react/lib/Icon';
-import { Text, ITextProps } from 'office-ui-fabric-react/lib/Text';
+import { Text } from 'office-ui-fabric-react/lib/Text';
 import { AnimationStyles, mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 
 import styles from './StepperSimple.module.scss';
-
-// export enum StepperSimpleDesign {
-//     Button,
-//     Bar
-// }
+// notes:
+// https://quasar.dev/vue-components/stepper#Installation
+// https://developer.microsoft.com/de-DE/fluentui#/controls/web/text
+// https://github.com/OfficeDev/hands-on-labs/blob/master/O3652/O3652-1%20Deep%20Dive%20in%20Office%20Outlook%20Add-ins/Completed%20Projects/Translator/TranslatorWeb/Content/sass/_Fabric.Color.Variables.scss
+// https://github.com/OfficeDev/office-ui-fabric-core/blob/master/src/sass/_Animation.scss
 
 export enum StepperSimpleStyle {
     Bar,
     NextButton,
     BackButton
 }
-
-// export enum StepperSimpleTense {
-//     Past = "past",
-//     Active = "active",
-//     Futher = "futher"
-// }
 
 export interface IStepperSimpleOption {
     text: string;
@@ -225,8 +219,35 @@ function StepperBar(props: IStepperSimpleElement) {
             return mergeStyles(styles.iconContainer);
         }
 
+        const getColorLineStyle = () => {
+            if(props.isPast) {
+                return mergeStyles(styles.colorLine, styles.pastLine);
+            }
+
+            if(props.isActive) {
+                return mergeStyles(styles.colorLine, styles.activeLine);
+            }
+
+            if(props.isFuther) {
+                return mergeStyles(styles.colorLine, styles.futherLine);
+            }
+            
+            return mergeStyles(styles.colorLine);
+        }
+
+        // AnimationStyles.ms-motion-slideLeftIn
+
+        const getBarContainerStyle = () => {
+            if(props.isActive) {
+                return mergeStyles(styles.barContainer, AnimationStyles.slideLeftIn40); //  fadeIn200
+            }
+
+            return mergeStyles(styles.barContainer)
+        }
+        
         return (
-            <div className={styles.barContainer}>
+            <div>
+            <div className={getBarContainerStyle()}>
                 
                     <div className={styles.circle}>
                         <span className={getIconConatianerStyle()}>
@@ -237,7 +258,9 @@ function StepperBar(props: IStepperSimpleElement) {
                         <Text variant={"small"}>{props.item.text}</Text>
                     </div>
 
-                    <div className={styles.colorLine}>&nbsp;</div>
+                    
+            </div>
+            <div className={getColorLineStyle()}></div>
             </div>
         )
     }

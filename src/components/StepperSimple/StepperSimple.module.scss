@@ -11,7 +11,7 @@
         border: 1px solid green;
         display: grid;
         grid-template-columns: 38px 80%;
-        grid-template-rows: 74px 10px;
+        // grid-template-rows: 74px 10px;
         grid-gap: 8px;
         padding: 0 5px;
         min-height: 72px;
@@ -39,10 +39,7 @@
             margin-right: 8px;
         }
 
-        .colorLine {
-            width: 100%;
-            background-color: grey;
-        }
+
     }
 }
 //  https://github.com/OfficeDev/hands-on-labs/blob/master/O3652/O3652-1%20Deep%20Dive%20in%20Office%20Outlook%20Add-ins/Completed%20Projects/Translator/TranslatorWeb/Content/sass/_Fabric.Color.Variables.scss
@@ -59,6 +56,13 @@
     color: $ms-color-info
 }
 
+
+.colorLine {
+    margin-top: -10px;
+    height: 10px;
+    width: 100%;
+    background-color: grey;
+}
 
 .pastLine {
     background-color: $ms-color-success
